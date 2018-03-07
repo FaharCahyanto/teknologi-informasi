@@ -1,18 +1,24 @@
 <?php
-$name       = @trim(stripslashes($_POST['name'])); 
-$from       = @trim(stripslashes($_POST['email'])); 
-$subject    = @trim(stripslashes($_POST['subject'])); 
-$message    = @trim(stripslashes($_POST['message'])); 
-$to         = 'dumail.teknologyinformasi.its@gmail.com';
+$name   = $_POST['name'];
+$email  = $_POST['email'];
+$subject= $_POST['subject'];
+$message= $_POST['message'];
 
-$headers   = array();
-$headers[] = "MIME-Version: 1.0";
-$headers[] = "Content-type: text/plain; charset=iso-8859-1";
-$headers[] = "From: {$name} <{$from}>";
-$headers[] = "Reply-To: <{$from}>";
-$headers[] = "Subject: {$subject}";
-$headers[] = "X-Mailer: PHP/".phpversion();
+$to='dumail.teknologyinformasi.its@gmail.com';
 
-mail($to, $subject, $message, $headers);
+$message="From:$name <br />".$message;
 
-die;
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
+
+// More headers
+$headers .= "From : ".$email. "\r\n" . 'Reply-To: '.$name.' <'.$email.'>'."\r\n";
+$headers .= "Cc: " .$email. "\r\n"; //untuk cc lebih dari satu tinggal kasih koma
+
+@mail($to,$subject,$message,$headers);
+
+if(@mail)
+{
+echo "Email sent successfully !!";	
+}
+?>
