@@ -1,10 +1,24 @@
 <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "contact";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
 $name   = $_POST['name'];
 $email  = $_POST['email'];
 $subject= $_POST['subject'];
 $message= $_POST['message'];
 
 $to='dumail.teknologyinformasi.its@gmail.com';
+
+$sql = "INSERT INTO inbox (name, email, subject, message)
+VALUES ('$name', '$email', '$subject', '$message')";
 
 $message="From:$name <br />".$message;
 
@@ -17,8 +31,13 @@ $headers .= "Cc: " .$email. "\r\n"; //untuk cc lebih dari satu tinggal kasih kom
 
 @mail($to,$subject,$message,$headers);
 
-if(@mail)
-{
-echo "Email sent successfully !!";	
+
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
+
+$conn->close();
 ?>
