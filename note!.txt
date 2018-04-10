@@ -1,0 +1,7 @@
+Create database = buka buatdatabase.php
+Create Table = buka buattable.php
+Create data = didalam sendemail.php
+Read data = database.php
+Update data lama yang telah terbaca = update.php 
+//sudah dibaca email berganti email teknologi informasi
+delete 1 pesan lama = delete.php
